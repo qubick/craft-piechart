@@ -1,0 +1,29 @@
+<craft>
+    <parameter name="type" type="int" default="1"/>
+
+    <script type="text/openjscad">
+
+        function main() {
+        
+            var angle = params.angle
+                ,iter = 360/angle
+                    
+            var pie = cylinder({r:20, h:3})
+                ,block = cube([20,20,3])
+
+            for(var i=0; i<iter-1; i++){
+                block = block.rotateZ(angle)
+                
+                pie = difference(
+                        pie,
+                        block
+                    )
+            }
+                    
+            return pie;
+}
+
+
+    </script>
+</craft>
+
