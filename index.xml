@@ -3,25 +3,87 @@
 
     <script type="text/openjscad">
 
-        function main() {
-        
-            var angle = params.angle
-                ,iter = 360/angle
-                    
-            var pie = cylinder({r:20, h:3})
-                ,block = cube([20,20,3])
-
-            for(var i=0; i<iter-1; i++){
-                block = block.rotateZ(angle)
+        function main(){
+            var ang = params.angle
+            var part; // = sixty()
+            
+            if(ang === 30)
+                part = thirty()
+            else if(ang === 45)
+                part = fourtyfive()
+            else if(ang === 60)
+                part = sixty()
+            else if(ang === 90)
+                part = ninety()
+            else if(ang === 120)
+                part = onetwenty()
+            else if(ang === 180)
+                part = oneeighty()
                 
+            var pie = difference(
+                cylinder({r:20, h:3, fn:100}).setColor([0,1,1])
+                ,part
+            )
+            return pie;
+        }
+
+        function oneeighty(){
+            return union(
+                ninety(),
+                ninety().rotateZ(90)
+            );
+        }
+
+        function onetwenty(){
+            
+            return union(
+                ninety().rotateZ(30),
+                thirty()
+                );
+        }
+
+        function ninety(){
+            return union(
+                sixty().rotateZ(30),
+                thirty()
+            );
+        }
+
+        function thirty(){
+            
+            return difference(
+                sixty(),
+                sixty().rotateZ(30).setColor([1,0,0])
+            );
+        }
+
+        function fourtyfive(){
+            
+            return union(
+                 thirty(),
+                 thirty().rotateZ(15)
+            );
+        }
+        function sixty() {
+                
+            var angle = 60
+                ,iter = Math.floor(360/angle)
+                    
+            var pie = cylinder({r:20, h:3, fn:100}).setColor([0,1,1])
+                ,block = cube([40,40,3]).translate([-20,0,0])
+
+            
+            for(var i=0; i<iter-1; i++){
+                //block = block.rotateZ(angle)
+                angle = angle*(i+1)
                 pie = difference(
                         pie,
-                        block
+                        block.rotateZ(angle)
                     )
             }
                     
             return pie;
-}
+        }
 
 
     </script>
