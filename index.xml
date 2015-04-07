@@ -1,30 +1,35 @@
 <craft>
-    <parameter name="type" type="int" default="1"/>
+    <parameter name="angle" type="int" default="60"/>
 
     <script type="text/openjscad">
 
         function main(params){
-            var ang = params.angle
-            var part; // = sixty()
+            var angle = params.angle
+            var part;
             
-            if(ang === 30)
+        console.log(angle)
+
+            if(angle === 30)
                 part = thirty()
-            else if(ang === 45)
+            else if(angle === 45)
                 part = fourtyfive()
-            else if(ang === 60)
+            else if(angle === 60)
                 part = sixty()
-            else if(ang === 90)
+            else if(angle === 90)
                 part = ninety()
-            else if(ang === 120)
+            else if(angle === 120)
                 part = onetwenty()
-            else if(ang === 180)
+            else if(angle === 180)
                 part = oneeighty()
                 
             var pie = difference(
-                cylinder({r:20, h:3, fn:100}).setColor([0,1,1])
+                cylinder({r:20, h:3, fn:100})
                 ,part
             )
-            return pie;
+            return union(
+                pie,
+                part.translate([1,-1,0])
+            );
         }
 
         function oneeighty(){
