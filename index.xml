@@ -3,7 +3,7 @@
 
     <script type="text/openjscad">
 
-        function main(){
+        function main(params){
             var ang = params.angle
             var part; // = sixty()
             
