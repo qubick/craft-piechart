@@ -1,14 +1,53 @@
 <craft>
-    <parameter name="angle" type="int" default="60"/>
+    <parameter name="angle" type="string" default="60"/>
 
     <script type="text/openjscad">
 
         function main(params){
-            var angle = params.angle
-            var part;
-            
-        console.log(angle)
+            var ang = params.angle.split(','); // = params.angle
+            var data = []
+            var part = sixty() //initialize
 
+            ang.forEach(function(angle){
+                var part = sixty();
+
+                if(angle < 60){
+                    part = intersection(
+                        sixty(),
+                        part.rotateZ(60-angle)
+                    ).translate([0,-5,0]);
+                } else if(angle >= 60 && angle < 120){
+                    part = union(
+                        sixty(),
+                        part.rotateZ(angle-60)
+                    );
+                } else if(angle >= 120 && angle<180){
+                    part = union(
+                        onetwenty(),
+                        part.rotateZ(angle-60)
+                    )
+                }
+                data.push(part)
+            })
+
+            var pie = difference(
+                cylinder({r:20, h:3, fn:100})
+                ,part
+            )
+/*
+            data.forEach(function(d){
+                wholepie = difference(
+                    wholepie
+                    ,d
+                )
+            });
+*/
+            return union(
+                pie,
+                part.translate([1,-1,0])
+            );
+        }
+/*
             if(angle === 30)
                 part = thirty()
             else if(angle === 45)
@@ -31,7 +70,7 @@
                 part.translate([1,-1,0])
             );
         }
-
+*/
         function oneeighty(){
             return union(
                 ninety(),
