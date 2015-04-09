@@ -47,7 +47,7 @@
                 data.forEach(function(d){ //build the entire pie
                     pie = union(
                         pie,
-                        d// translate in cos,sin theta
+                        d.translate([1,-1,0])
                     )
                 });
 
