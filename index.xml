@@ -1,6 +1,6 @@
 <craft>
     <parameter name="angle" type="string" default="60"/>
-
+    <parameter name="type" type="string" default="chart"/>
     <script type="text/openjscad">
 
         function main(params){
@@ -43,20 +43,26 @@
                 )
             });
 
-            data.forEach(function(d){ //build the entire pie
-                pie = union(
-                    pie,
-                    d// translate in cos,sin theta
-                )
-            });
+            if(params.type === "chart"){
+                data.forEach(function(d){ //build the entire pie
+                    pie = union(
+                        pie,
+                        d// translate in cos,sin theta
+                    )
+                });
 
-            return pie
+                return pie
+            } else if(params.type === "semicircle"){
+                console.log("semicircle")
+                part = part
+            }
             /*
             return union(
                 pie,
                 part.translate([1,-1,0])
             );
 */
+            return part
         }
 
         function sixty() {
