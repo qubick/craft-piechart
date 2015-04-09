@@ -1,7 +1,7 @@
 <craft>
     <craft name="pie" src="./index.xml"/>
     <row>        
-        <pie angle="30"></pie>
+        <pie angle="20,30"></pie>
     </row>
 	 
 </craft>

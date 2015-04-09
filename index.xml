@@ -4,9 +4,10 @@
     <script type="text/openjscad">
 
         function main(params){
-            var ang = params.angle.split(','); // = params.angle
-            var data = []
-            var part = sixty() //initialize
+            var ang = params.angle.split(',') // = params.angle
+                ,data = []
+                ,part = sixty()
+                ,anglesum = 0 //initialize
 
             ang.forEach(function(angle){
                 var part = sixty();
@@ -27,87 +28,37 @@
                         part.rotateZ(angle-60)
                     )
                 }
+                part = part.rotateZ(anglesum)
+                anglesum = anglesum + angle
+
                 data.push(part)
             })
 
-            var pie = difference(
-                cylinder({r:20, h:3, fn:100})
-                ,part
-            )
-/*
-            data.forEach(function(d){
-                wholepie = difference(
-                    wholepie
+            var pie = cylinder({r:20, h:3, fn:100})
+
+            data.forEach(function(d, i){ //construct left over pie
+                pie = difference(
+                    pie
                     ,d
                 )
             });
-*/
+
+            data.forEach(function(d){ //build the entire pie
+                pie = union(
+                    pie,
+                    d// translate in cos,sin theta
+                )
+            });
+
+            return pie
+            /*
             return union(
                 pie,
                 part.translate([1,-1,0])
             );
-        }
-/*
-            if(angle === 30)
-                part = thirty()
-            else if(angle === 45)
-                part = fourtyfive()
-            else if(angle === 60)
-                part = sixty()
-            else if(angle === 90)
-                part = ninety()
-            else if(angle === 120)
-                part = onetwenty()
-            else if(angle === 180)
-                part = oneeighty()
-                
-            var pie = difference(
-                cylinder({r:20, h:3, fn:100})
-                ,part
-            )
-            return union(
-                pie,
-                part.translate([1,-1,0])
-            );
-        }
 */
-        function oneeighty(){
-            return union(
-                ninety(),
-                ninety().rotateZ(90)
-            );
         }
 
-        function onetwenty(){
-            
-            return union(
-                ninety().rotateZ(30),
-                thirty()
-                );
-        }
-
-        function ninety(){
-            return union(
-                sixty().rotateZ(30),
-                thirty()
-            );
-        }
-
-        function thirty(){
-            
-            return difference(
-                sixty(),
-                sixty().rotateZ(30).setColor([1,0,0])
-            );
-        }
-
-        function fourtyfive(){
-            
-            return union(
-                 thirty(),
-                 thirty().rotateZ(15)
-            );
-        }
         function sixty() {
                 
             var angle = 60
