@@ -1,7 +1,7 @@
 <craft>
     <craft name="circle" src="./index.xml"/>
     <row> 
-    	<circle angle="45" type="chart"></circle>
+    	<circle angle="45" type="chart" radius="1"></circle>
     	<circle angle="120" type="semicircle"></circle>
     </row>
 	 

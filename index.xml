@@ -1,41 +1,42 @@
 <craft>
     <parameter name="angle" type="int" default="60"/>
     <parameter name="type" type="string" default="chart"/>
+    <parameter name="radius" type="int" default="2"/>
     <script type="text/openjscad">
 
         function main(params){
             //var ang = params.angle.split(',') // = params.angle
             var angle = params.angle
+					,radius = params.radius*10
 //                ,data = []
-                ,part = sixty()
+                ,part = sixty(radius)
 //                ,anglesum = 0 //initialize
 
 //            ang.forEach(function(angle){
                 if(angle < 60){
                     part = intersection(
-                        sixty(),
+                        sixty(radius),
                         part.rotateZ(60-angle)
                     )
                 } else if(angle >= 60 && angle < 120){
                     part = union(
-                        sixty(),
+                        sixty(radius),
                         part.rotateZ(angle-60)
                     )
-                } else if(angle >= 120 && angle<180){
+                } else if(angle >= 120 && angle < 180){
                     part = union(
-                        sixty(),
-                        sixty().rotateZ(60),
+                        sixty(radius),
+                        sixty(radius).rotateZ(60),
                         part.rotateZ(angle-60)
                     )
                 }
-
-                console.log("reached here")
+console.log("reched here")
 //                part = part.rotateZ(anglesum)
 //                anglesum = anglesum + angle
 
 //                data.push(part)
 //            })
-            var pie = cylinder({r:20, h:3, fn:100})
+            var pie = cylinder({r:radius, h:3, fn:100})
 
 //            data.forEach(function(d, i){ //construct left over pie
 //                pie = difference(
@@ -72,13 +73,14 @@
         return pie   
         }
 
-        function sixty() {//basic structure
+        function sixty(radius) {//basic structure
                 
             var angle = 60
                 ,iter = Math.floor(360/angle)
-                    
-            var pie = cylinder({r:20, h:3, fn:100})
-                ,block = cube([40,40,3]).translate([-20,0,0])
+                ,side = radius*2
+
+            var pie = cylinder({r:radius, h:3, fn:100})
+                ,block = cube([side,side,3]).translate([-radius,0,0])
 
             
             for(var i=0; i<iter-1; i++){
@@ -88,10 +90,9 @@
                         block.rotateZ(angle)
                     )
             }
+console.log("sixty launched")
             return pie;
         }
-
-
     </script>
 </craft>
 
