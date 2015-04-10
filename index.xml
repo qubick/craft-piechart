@@ -30,7 +30,6 @@
                         part.rotateZ(angle-60)
                     )
                 }
-console.log("reched here")
 //                part = part.rotateZ(anglesum)
 //                anglesum = anglesum + angle
 
@@ -90,7 +89,6 @@ console.log("reched here")
                         block.rotateZ(angle)
                     )
             }
-console.log("sixty launched")
             return pie;
         }
     </script>
