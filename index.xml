@@ -98,7 +98,7 @@
             );
         }
 
-        function sixty(radius) {//basic structure
+        function sixty(radius) {
                 
             var angle = 60
                 ,iter = Math.floor(360/angle)
