@@ -1,8 +1,8 @@
 <craft>
     <craft name="circle" src="./index.xml"/>
     <row> 
-    	<circle angle="60" type="chart"></pie>
-        <circle angle="60" type="semicircle"></pie>
+    	<circle angle="45" type="chart"></pie>
+        <circle angle="120" type="semicircle"></pie>
     </row>
 	 
 </craft>

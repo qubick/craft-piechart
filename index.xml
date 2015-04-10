@@ -1,71 +1,76 @@
 <craft>
-    <parameter name="angle" type="string" default="60"/>
+    <parameter name="angle" type="int" default="60"/>
     <parameter name="type" type="string" default="chart"/>
     <script type="text/openjscad">
 
         function main(params){
-            var ang = params.angle.split(',') // = params.angle
-                ,data = []
+            //var ang = params.angle.split(',') // = params.angle
+            var angle = params.angle
+//                ,data = []
                 ,part = sixty()
-                ,anglesum = 0 //initialize
+//                ,anglesum = 0 //initialize
 
-            ang.forEach(function(angle){
-                var part = sixty();
-
+//            ang.forEach(function(angle){
                 if(angle < 60){
                     part = intersection(
                         sixty(),
                         part.rotateZ(60-angle)
-                    ).translate([0,-5,0]);
+                    )
                 } else if(angle >= 60 && angle < 120){
                     part = union(
                         sixty(),
                         part.rotateZ(angle-60)
-                    );
+                    )
                 } else if(angle >= 120 && angle<180){
                     part = union(
-                        onetwenty(),
+                        sixty(),
+                        sixty().rotateZ(60),
                         part.rotateZ(angle-60)
                     )
                 }
-                part = part.rotateZ(anglesum)
-                anglesum = anglesum + angle
+//                part = part.rotateZ(anglesum)
+//                anglesum = anglesum + angle
 
-                data.push(part)
-            })
-
+//                data.push(part)
+//            })
             var pie = cylinder({r:20, h:3, fn:100})
 
-            data.forEach(function(d, i){ //construct left over pie
-                pie = difference(
-                    pie
-                    ,d
-                )
-            });
+//            data.forEach(function(d, i){ //construct left over pie
+//                pie = difference(
+//                    pie
+//                    ,d
+//                )
+//            });
 
             if(params.type === "chart"){
-                data.forEach(function(d){ //build the entire pie
-                    pie = union(
-                        pie,
-                        d.translate([1,-1,0])
-                    )
-                });
+                pie = difference(
+                    pie,
+                    part
+                )
 
-                return pie
+                pie = union(
+                    pie,
+                    part.translate([1,-0.5,0])
+                    )
+//            if(params.type === "chart"){
+//                data.forEach(function(d){ //build the entire pie
+//                    pie = union(
+//                        pie,
+//                        d.translate([1,-1,0])
+//                    )
+//                });
+
+                //return pie
             } else if(params.type === "semicircle"){
                 console.log("semicircle")
-                part = part
+                
+                pie = part 
+                //return part
             }
-            /*
-            return union(
-                pie,
-                part.translate([1,-1,0])
-            );
-*/
-            return part
-        }
 
-        function sixty() {
+        return pie   
+        
+        function sixty() {//basic structure
                 
             var angle = 60
                 ,iter = Math.floor(360/angle)
