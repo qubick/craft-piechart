@@ -9,7 +9,7 @@
             var angle = params.angle
                 ,radius = params.radius*10
                 //,data = []
-                ,part = sixty(radius)
+                ,part = oneeighty(radius)
                 //,anglesum = 0 //initialize
 /*
 //            ang.forEach(function(angle){
@@ -31,7 +31,7 @@
                     )
                 } 
 */
-                part = oneeighty(radius)
+                //part = oneeighty(radius)
                 if(angle < 180){
                     part = intersection(
                         oneeighty(radius)
