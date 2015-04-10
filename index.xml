@@ -28,6 +28,8 @@
                         part.rotateZ(angle-60)
                     )
                 }
+
+                console.log("reached here")
 //                part = part.rotateZ(anglesum)
 //                anglesum = anglesum + angle
 
@@ -46,12 +48,12 @@
                 pie = difference(
                     pie,
                     part
-                )
+                );
 
                 pie = union(
                     pie,
                     part.translate([1,-0.5,0])
-                    )
+                );
 //            if(params.type === "chart"){
 //                data.forEach(function(d){ //build the entire pie
 //                    pie = union(
@@ -62,32 +64,30 @@
 
                 //return pie
             } else if(params.type === "semicircle"){
-                console.log("semicircle")
                 
                 pie = part 
                 //return part
             }
 
         return pie   
-        
+        }
+
         function sixty() {//basic structure
                 
             var angle = 60
                 ,iter = Math.floor(360/angle)
                     
-            var pie = cylinder({r:20, h:3, fn:100}).setColor([0,1,1])
+            var pie = cylinder({r:20, h:3, fn:100})
                 ,block = cube([40,40,3]).translate([-20,0,0])
 
             
             for(var i=0; i<iter-1; i++){
-                //block = block.rotateZ(angle)
                 angle = angle*(i+1)
                 pie = difference(
                         pie,
                         block.rotateZ(angle)
                     )
             }
-                    
             return pie;
         }
 
