@@ -5,13 +5,13 @@
     <script type="text/openjscad">
 
         function main(params){
-            //var ang = params.angle.split(',') // = params.angle
+        //var ang = params.angle.split(',') // = params.angle
             var angle = params.angle
-					,radius = params.radius*10
-//                ,data = []
+                ,radius = params.radius*10
+                //,data = []
                 ,part = sixty(radius)
-//                ,anglesum = 0 //initialize
-
+                //,anglesum = 0 //initialize
+/*
 //            ang.forEach(function(angle){
                 if(angle < 60){
                     part = intersection(
@@ -28,6 +28,19 @@
                         sixty(radius),
                         sixty(radius).rotateZ(60),
                         part.rotateZ(angle-60)
+                    )
+                } 
+*/
+                part = oneeighty(radius)
+                if(angle < 180){
+                    part = intersection(
+                        oneeighty(radius)
+                        ,part.rotateZ(180-angle)
+                    )
+                } else {
+                    part = union(
+                        oneeighty(radius)
+                        ,part.rotateZ(angle-180)
                     )
                 }
 //                part = part.rotateZ(anglesum)
@@ -70,6 +83,19 @@
             }
 
         return pie   
+        }
+
+        function oneeighty(radius){
+            var angle = 180
+                ,side = radius*2
+
+            var pie = cylinder({r:radius, h:3, fn:100})
+                ,block = cube([side,side,3]).translate([-radius,0,0])
+
+            return difference(
+                pie,
+                block
+            );
         }
 
         function sixty(radius) {//basic structure

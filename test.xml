@@ -3,6 +3,7 @@
     <row> 
     	<circle angle="45" type="chart" radius="1"></circle>
     	<circle angle="120" type="semicircle"></circle>
+    	<circle angle="270" type="semicircle"></circle>
     </row>
 	 
 </craft>
